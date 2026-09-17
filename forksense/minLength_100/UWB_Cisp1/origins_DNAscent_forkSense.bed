@@ -1,0 +1,16 @@
+#DetectFile /project2/tp_612_1653/for_Tirzah/dnascent_petrina/merged_bams/UWB_Cisp1_detect_q30_full.bam
+#ForkSenseFile /project2/tp_612_1653/for_Tirzah/dnascent_petrina/forksense/minLength_100/UWB_Cisp1/UWB_Cisp1.forkSense
+#AnalogueOrder EdU,BrdU
+#Threads 8
+#Compute CPU
+#SystemStartTime 10/09/2026 15:24:23
+#Software /app/DNAscent/
+#Version 4.2.1
+#Commit e830fe7ba75392dfc0f4f7d4cd89f8509fec86df
+chr1 143218702 143218702 1175b148-7b5f-4b1f-8fbe-6319b8ae4dac 143213022 143233430 fwd
+chr1 143228695 143228695 1175b148-7b5f-4b1f-8fbe-6319b8ae4dac 143213022 143233430 fwd
+chr10 41885215 41885215 0cda25fd-d6cc-493e-a9a1-08a470c02ae7 41875787 41892301 fwd
+chr10 41903410 41903410 792adfd2-a9b2-450d-aab3-178d4e5ac9fe 41893512 41916263 fwd
+chr10 41911481 41911481 792adfd2-a9b2-450d-aab3-178d4e5ac9fe 41893512 41916263 fwd
+chr4 49150625 49150625 d51541e7-3790-4277-a351-393f1ec2a5c5 49143801 49156884 rev
+chr4 49639406 49639406 123441ea-8b48-4ea9-b39d-7a0dd3b86fed 49634968 49649043 fwd

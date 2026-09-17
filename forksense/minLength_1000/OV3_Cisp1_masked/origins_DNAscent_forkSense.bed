@@ -1,0 +1,15 @@
+#DetectFile /project2/tp_612_1653/for_Tirzah/dnascent_petrina/merged_bams/OV3_Cisp1_masked_detect_q30_full.bam
+#ForkSenseFile /project2/tp_612_1653/for_Tirzah/dnascent_petrina/forksense/OV3_Cisp1_masked/OV3_Cisp1_masked.forkSense
+#AnalogueOrder EdU,BrdU
+#Threads 8
+#Compute CPU
+#SystemStartTime 18/08/2026 17:21:28
+#Software /app/DNAscent/
+#Version 4.2.1
+#Commit e830fe7ba75392dfc0f4f7d4cd89f8509fec86df
+chr10 41903738 41903738 806468f6-34ea-4e3b-b26f-3752e716a4a3 41889467 41916262 fwd
+chr2 87418768 87418768 d5b0c0dd-2b33-4a42-8f6d-7ffc6fa12bfb 87413549 87431213 fwd
+chr2 87426502 87426502 d5b0c0dd-2b33-4a42-8f6d-7ffc6fa12bfb 87413549 87431213 fwd
+chr2 87418715 87418715 c84535dc-6268-46fd-be82-a3be81f683f2 87414111 87431213 fwd
+chr20 31074172 31074172 66898fd7-e415-4940-8f7c-ee35a2bbffc3 31058143 31080766 fwd
+chr20 31068794 31068794 cf5ad76d-1cc8-44a0-9891-81d4fca86b29 31061278 31074395 fwd
