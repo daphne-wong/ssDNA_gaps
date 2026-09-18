@@ -294,7 +294,7 @@ def main():
         wins = window_read(calls, args.window, args.prob_threshold,                 # If pass, then window the read. Outputs window_coords(w0, w1), state(st), and total call count
                            args.min_calls_per_window, args.min_frac)
         positive_bp = sum(w1 - w0 for w0, w1, st, _ in wins if st == 1)             # Note pos_bp count
-        negative_bp = sum(w1 - w0 for w0, w1, st, _ in winsif st == 0)              # Note neg_bp count
+        negative_bp = sum(w1 - w0 for w0, w1, st, _ in wins if st == 0)              # Note neg_bp count
 
         informative = positive_bp + negative_bp
         # interrogated denominator: informative windows only
