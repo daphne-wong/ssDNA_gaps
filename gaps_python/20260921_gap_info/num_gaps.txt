@@ -1,0 +1,13 @@
+   300996 OV3_Cisp0.gaps.sorted.bed
+    72017 OV3_Cisp0.gaps.support2.bed
+    63656 OV3_Cisp0.gaps.support3.bed
+   201368 OV3_Cisp1_masked.gaps.sorted.bed
+    34127 OV3_Cisp1_masked.gaps.support2.bed
+    27140 OV3_Cisp1_masked.gaps.support3.bed
+   256368 UWB_Cisp0.gaps.sorted.bed
+    64304 UWB_Cisp0.gaps.support2.bed
+    57205 UWB_Cisp0.gaps.support3.bed
+   231946 UWB_Cisp1.gaps.sorted.bed
+    71797 UWB_Cisp1.gaps.support2.bed
+    65450 UWB_Cisp1.gaps.support3.bed
+  1446374 total

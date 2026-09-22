@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# 2+ supporting reads
+module load bedtools2
+bedtools sort -i sample.gaps.bed > sample.gaps.sorted.bed
+
+sample=""
+
+bedtools intersect \
+  -a ${sample}.gaps.sorted.bed  \
+  -b  ${sample}.gaps.sorted.bed \
+  -c \
+  -f 0.5 \
+  -r | awk 'BEGIN {OFS="\t"} $7 >= 2 {$4=$4"|support="$7; print $1,$2,$3,$4,$5,$6}' > ${sample}.gaps.support2.bed
+
+
+
+# 3+ supporting reads
+bedtools intersect \
+  -a  ${sample}.gaps.sorted.bed \
+  -b  ${sample}.gaps.sorted.bed \
+  -c \
+  -f 0.5 \
+  -r | awk 'BEGIN {OFS="\t"} $7 >= 3 {$4=$4"|support="$7; print $1,$2,$3,$4,$5,$6}' > ${sample}.gaps.support3.bed
