@@ -88,7 +88,7 @@ chrom_rates <- per_chrom %>%
 per_read2 <- per_read %>%
   mutate(read_span = ref_end - ref_start + 1,
          has_gap = n_gaps > 0,
-         gaps_per_Mb = n_gaps / informative_bp * 1e6)
+         gaps_per_Mb = n_gaps / informative_bp * 1e6)t
 
 
 
