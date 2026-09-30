@@ -8,7 +8,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64GB
-#SBATCH --time=1-00:00:00
+#SBATCH --time=2-00:00:00
 #SBATCH --array=1-16
 #SBATCH --mail-user=daphnew@usc.edu
 #SBATCH --mail-type=ALL
