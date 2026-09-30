@@ -209,13 +209,8 @@ def flank_stats(positions, prefixes, boundary, side, min_calls):
 def call_events(calls, min_gap, max_gap, gap_step, min_calls_in_middle,
                 min_flank_calls, min_labelled_fraction,
                 max_negative_fraction, max_other_fraction,
-                prob_threshold, event_types=EVENT_TYPES):
-    """Call non-overlapping short events without tiled gap boundaries.
-    Only event types listed in event_types are searched for; disabled types
-    are neither reported nor allowed to pre-empt an enabled type."""
-    event_types = set(event_types)
-    edu_wanted = bool(event_types & {'EdU-negative-EdU', 'EdU-BrdU-EdU'})       # Any event that needs an EdU left flank
-    brdu_wanted = 'BrdU-negative-BrdU' in event_types                           # Only event that needs a BrdU left flank
+                prob_threshold):
+    """Call non-overlapping short events without tiled gap boundaries."""
     if len(calls) < 2 * min_flank_calls + min_calls_in_middle:
         return []
     positions, pre_brdu, pre_edu, pre_either = make_prefix(calls, prob_threshold)
@@ -231,8 +226,7 @@ def call_events(calls, min_gap, max_gap, gap_step, min_calls_in_middle,
             left_type = 'EdU'
         elif left and labelled(left, 'BrdU', min_labelled_fraction):
             left_type = 'BrdU'
-        if (left_type is None or (left_type == 'EdU' and not edu_wanted)
-                or (left_type == 'BrdU' and not brdu_wanted)):             # Skip seeds that cannot give an enabled event
+        if left_type is None:
             i += 1
             continue
 
@@ -247,13 +241,13 @@ def call_events(calls, min_gap, max_gap, gap_step, min_calls_in_middle,
                 continue
             middle = interval_stats(positions, prefixes, start, end)
 
-            negative_type = f'{left_type}-negative-{left_type}'
-            if negative_type in event_types and middle_matches(middle, 'negative', min_calls_in_middle,
+            if middle_matches(middle, 'negative', min_calls_in_middle,
                               min_labelled_fraction, max_negative_fraction,
                               max_other_fraction):
-                found = (end, negative_type, middle, left, right)
+                event_type = f'{left_type}-negative-{left_type}'
+                found = (end, event_type, middle, left, right)
                 break
-            if left_type == 'EdU' and 'EdU-BrdU-EdU' in event_types and middle_matches(
+            if left_type == 'EdU' and middle_matches(
                     middle, 'BrdU', min_calls_in_middle,
                     min_labelled_fraction, max_negative_fraction,
                     max_other_fraction):
@@ -344,7 +338,6 @@ def parse_args():
     parser.add_argument('--max-other-analogue-frac', type=float, default=0.05, help='maximum EdU fraction in a BrdU middle (default: 0.05)')
     parser.add_argument('--min-calls-in-gap', type=int, default=20, help='minimum calls in the middle interval (default: 20)')
     parser.add_argument('--min-flank-calls', type=int, default=20, help='nearest calls used to support each flank; no bp-length limit (default: 20)')
-    parser.add_argument('--event-types', nargs='+', choices=EVENT_TYPES, default=list(EVENT_TYPES), help='event types to search for (default: all three)')
     parser.add_argument('--window', type=int, default=100, help='window used only for informative-bp denominators (default: 100)')
     parser.add_argument('--min-calls-per-window', type=int, default=10, help='minimum calls in an informative denominator window (default: 10)')
     parser.add_argument('--min-frac', type=float, default=0.05, help='retained for denominator compatibility (default: 0.05)')
@@ -414,7 +407,7 @@ def main():
             calls, args.min_gap, args.max_gap, args.gap_step,
             args.min_calls_in_gap, args.min_flank_calls,
             args.min_labelled_frac, args.max_negative_frac,
-            args.max_other_analogue_frac, args.prob_threshold, args.event_types)
+            args.max_other_analogue_frac, args.prob_threshold)
         read_counts = Counter(event['event_type'] for event in events)
         for event in events:                                                        # Add read and alignment information to each accepted event
             event.update(read_id=read_id, chrom=chrom, strand=strand)
@@ -480,7 +473,7 @@ def main():
                 counters['reads_too_few_calls'], counters['reads_too_short'])
     logger.info('interrogated_Mb=%.3f total_events=%d gap_burden_per_Mb=%.3f',
                 total_mb, len(all_events), len(all_events) / total_mb if total_mb else 0)
-    for event_type in args.event_types:
+    for event_type in EVENT_TYPES:
         logger.info('%s=%d', event_type, event_counts[event_type])
     logger.info('wrote %s.gaps.bed, %s.gaps.tsv, %s.per_read.tsv, %s.per_chrom.tsv, %s.log',
                 prefix, prefix, prefix, prefix, prefix)
